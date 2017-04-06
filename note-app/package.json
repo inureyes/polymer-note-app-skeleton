@@ -9,5 +9,8 @@
   "scripts": {
     "lint": "eslint . --ext js,html --ignore-path .gitignore",
     "test": "npm run lint && polymer test"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
   }
 }
