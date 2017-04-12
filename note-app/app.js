@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var rest_api = require('./routes/rest_api')
 
+//app.use(/^((?!.*abc).*)/, express.static(__dirname + '/'));
 app.use('/', express.static(__dirname + '/'));
 
 app.all('/api', function (req, res, next) {
