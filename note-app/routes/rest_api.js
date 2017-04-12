@@ -10,9 +10,11 @@ class rest_api {
       		}	else {
       			console.log("creating table")
       			db.run("CREATE TABLE note (content TEXT)", function(error) {
-      				if (error.message.indexOf("already exists") != -1) {
-      					console.log(error);
-      				}
+              if (error != null) {
+        				if (error.message.indexOf("already exists") != -1) {
+        					console.log(error);
+        				}
+              }
       			});
       		}
       	});
@@ -25,7 +27,7 @@ class rest_api {
       stmt.finalize()
 
       db.each('SELECT rowid AS id, content FROM note', function (err, row) {
-        console.log(row.id + ': ' + row.info)
+        console.log(row.id + ': ' + row.content)
       })
 
     })
