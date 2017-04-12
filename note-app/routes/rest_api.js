@@ -9,7 +9,7 @@ class rest_api {
       			console.log("Table exists. skipping creation");
       		}	else {
       			console.log("Creating table")
-      			db.run("CREATE TABLE note (content TEXT)", function(error) {
+      			db.run("CREATE TABLE note (id INTEGER PRIMARY KEY AUTOINCREMENT, created TIMESTAMP DEFAULT (DATETIME('now')), content TEXT)", function(error) {
               if (error != null) {
         				if (error.message.indexOf("already exists") != -1) {
         					console.log(error);
@@ -18,19 +18,14 @@ class rest_api {
       			});
       		}
       	});
-      var stmt = db.prepare('INSERT INTO note VALUES (?)')
-
-      for (var i = 0; i < 10; i++) {
-        stmt.run('Ipsum ' + i)
-      }
-
+      var stmt = db.prepare('INSERT INTO note (content) VALUES (?)')
+      stmt.run(req.body.content)
       stmt.finalize()
-
-      db.each('SELECT rowid AS id, content FROM note', function (err, row) {
-        console.log(row.id + ': ' + row.content)
+      db.each('SELECT rowid AS id, created, content FROM note', function (err, row) {
+        console.log(row.id + ': ' + row.created + ': ' + row.content)
       })
-
     })
+    return true
   }
 }
 module.exports = rest_api;
