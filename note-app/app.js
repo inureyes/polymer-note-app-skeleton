@@ -11,6 +11,9 @@ app.all('/api', function (req, res, next) {
   console.log('API is called...');
   api = new rest_api();
   result = api.run(req);
+  if (result) {
+    res.json({success: true})
+  }
 });
 
 app.listen(3000, function () {

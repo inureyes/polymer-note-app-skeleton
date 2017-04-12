@@ -39,11 +39,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'write-view',
       ready: function() {
         Polymer.dom(this.root).querySelector('#saveButton').addEventListener('tap', this._submitForm.bind(this) );
+        Polymer.dom(this.root).querySelector('#form').addEventListener('iron-form-response', this._finishSave.bind(this));
       },
       _submitForm: function() {
         var content = Polymer.dom(this.root).querySelector('#content');
         content.value = Polymer.dom(this.root).querySelector('#noteEditor').value;
         Polymer.dom(this.root).querySelector('#form').submit();
+      },
+      _finishSave: function(e) {
+        var response = e.detail.response;
+        if (response.success) {
+          window.location.href = '/';
+        } else {
+          // Something went wrong
+        }
       }
   });
   </script>
