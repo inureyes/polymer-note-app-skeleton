@@ -2,7 +2,7 @@ var sqlite3 = require('sqlite3').verbose()
 var db = new sqlite3.Database(':memory:')
 
 class rest_api {
-  run() {
+  run(req) {
     db.serialize(function () {
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='note'", function(error, row) {
       		if (row !== undefined) {

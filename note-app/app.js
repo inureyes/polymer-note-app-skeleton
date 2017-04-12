@@ -8,7 +8,7 @@ app.use('/', express.static(__dirname + '/'));
 app.all('/api', function (req, res, next) {
   console.log('API is called...');
   api = new rest_api();
-  api.run();
+  result = api.run(req);
 });
 
 app.listen(3000, function () {
