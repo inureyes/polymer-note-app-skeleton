@@ -29,9 +29,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card flex layout horizontal wrap start">
-      <paper-material class="note" elevation="1">TEST NOTE 1</paper-material>
-      <paper-material class="note" elevation="1">TEST NOTE 2</paper-material>
-      <paper-material class="note" elevation="1">TEST NOTE 3</paper-material>
+      <template is="dom-repeat" items="{{ notes }}">
+      <paper-material class="note" elevation="1">{{item.contents}}</paper-material>
+      </template>
     </div>
   </template>
 
@@ -39,7 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'memories-view',
       ready: function() {
-
+        this.notes = [
+          {contents: "test1"},
+          {contents: "test2"}
+        ]
       }
     });
   </script>
