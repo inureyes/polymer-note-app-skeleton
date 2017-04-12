@@ -6,9 +6,9 @@ class rest_api {
     db.serialize(function () {
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='note'", function(error, row) {
       		if (row !== undefined) {
-      			console.log("table exists. skipping creation");
+      			console.log("Table exists. skipping creation");
       		}	else {
-      			console.log("creating table")
+      			console.log("Creating table")
       			db.run("CREATE TABLE note (content TEXT)", function(error) {
               if (error != null) {
         				if (error.message.indexOf("already exists") != -1) {
@@ -31,7 +31,6 @@ class rest_api {
       })
 
     })
-    db.close()
   }
 }
 module.exports = rest_api;
