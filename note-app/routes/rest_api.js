@@ -2,11 +2,11 @@ var sqlite3 = require('sqlite3').verbose()
 var db = new sqlite3.Database(':memory:')
 
 class rest_api {
-  run(req) {
+  constructor() {
     db.serialize(function () {
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='note'", function(error, row) {
       		if (row !== undefined) {
-      			console.log("Table exists. skipping creation");
+      			console.log("Table exists. skipping creation")
       		}	else {
       			console.log("Creating table")
       			db.run("CREATE TABLE note (id INTEGER PRIMARY KEY AUTOINCREMENT, created TIMESTAMP DEFAULT (DATETIME('now')), content TEXT)", function(error) {
@@ -15,17 +15,29 @@ class rest_api {
         					console.log(error);
         				}
               }
-      			});
+      			})
       		}
-      	});
+      	})
+    })
+  }
+  write(req) {
+    db.serialize(function () {
       var stmt = db.prepare('INSERT INTO note (content) VALUES (?)')
       stmt.run(req.body.content)
       stmt.finalize()
-      db.each('SELECT rowid AS id, created, content FROM note', function (err, row) {
-        console.log(row.id + ': ' + row.created + ': ' + row.content)
-      })
     })
     return true
+  }
+  list(req) {
+    return db.serialize(function () {
+      var items = [];
+      db.each('SELECT id, created, content FROM note', function (err, row) {
+        items.push({id: row.id, created: row.created, content: row.content})
+        console.log(row.id + ': ' + row.created + ': ' + row.content)
+      })
+      console.log(items)
+      return items
+    })
   }
 }
 module.exports = rest_api;
