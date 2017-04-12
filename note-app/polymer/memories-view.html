@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="memories-view">
@@ -16,22 +17,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+      paper-material.note {
+        width: 300px;
+        padding:20px;
+        margin: 10px;
+        background-color: #eeee44;
       }
     </style>
 
     <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <paper-material class="note" elevation="1">TEST NOTE 1</paper-material>
+      <paper-material class="note" elevation="1">TEST NOTE 2</paper-material>
+      <paper-material class="note" elevation="1">TEST NOTE 3</paper-material>
     </div>
   </template>
 
   <script>
     Polymer({
       is: 'memories-view',
+      ready: function() {
+
+      }
     });
   </script>
 </dom-module>
