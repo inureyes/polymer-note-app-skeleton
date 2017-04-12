@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/medium-editor-element/medium-editor-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="write-view">
@@ -24,13 +26,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Write</h1>
-      <medium-editor id="noteEditor"></medium-editor>
+      <form is="iron-form" id="form" method="post" action="/api/">
+        <medium-editor name="noteEditor" id="noteEditor"></medium-editor>
+        <input type="hidden" name="content" id="content"></input>
+        <paper-button id="saveButton">Save</paper-button>
+      </form>
     </div>
   </template>
 
   <script>
     Polymer({
       is: 'write-view',
-    });
+      ready: function() {
+        Polymer.dom(this.root).querySelector('#saveButton').addEventListener('tap', this._submitForm.bind(this) );
+      },
+      _submitForm: function() {
+        var content = Polymer.dom(this.root).querySelector('#content');
+        content.value = Polymer.dom(this.root).querySelector('#noteEditor').value;
+        Polymer.dom(this.root).querySelector('#form').submit();
+      }
+  });
   </script>
 </dom-module>
