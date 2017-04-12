@@ -10,11 +10,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="memories-view">
   <template>
-    <style include="shared-styles">
+  <style is="custom-style" include="iron-flex iron-flex-alignment shared-styles">
       :host {
         display: block;
         padding: 10px;
@@ -27,7 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <div class="card">
+    <div class="card flex layout horizontal wrap start">
       <paper-material class="note" elevation="1">TEST NOTE 1</paper-material>
       <paper-material class="note" elevation="1">TEST NOTE 2</paper-material>
       <paper-material class="note" elevation="1">TEST NOTE 3</paper-material>
