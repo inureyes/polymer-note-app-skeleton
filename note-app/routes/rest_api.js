@@ -25,18 +25,21 @@ class rest_api {
       var stmt = db.prepare('INSERT INTO note (content) VALUES (?)')
       stmt.run(req.body.content)
       stmt.finalize()
+      //db.run('INSERT INTO note (content) VALUES ('+req.body.content+')')
     })
     return true
   }
-  list(req) {
+  list(req, res) {
     return db.serialize(function () {
       var items = [];
       db.each('SELECT id, created, content FROM note', function (err, row) {
         items.push({id: row.id, created: row.created, content: row.content})
-        console.log(row.id + ': ' + row.created + ': ' + row.content)
+      }, function() {
+        console.log(items)
+        if (items) {
+          res.json({success: true, item: items})
+        }
       })
-      console.log(items)
-      return items
     })
   }
 }

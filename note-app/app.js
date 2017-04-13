@@ -22,11 +22,7 @@ app.all('/api/add', function (req, res, next) {
 app.all('/api/list', function (req, res, next) {
   console.log('List API is called...');
   api = new rest_api();
-  var result = api.list(req);
-  console.log("result:" + result)
-  if (result) {
-    res.json({success: true, item: result})
-  }
+  api.list(req, res);
 });
 
 app.listen(3000, function () {

@@ -11,6 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="memories-view">
@@ -29,8 +31,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card flex layout horizontal wrap start">
-      <template is="dom-repeat" items="{{ notes }}">
-      <paper-material class="note" elevation="1">{{item.contents}}</paper-material>
+      <template is="dom-repeat" items="[[notes]]">
+      <paper-material class="note" elevation="1">{{item.content}}</paper-material>
       </template>
     </div>
   </template>
@@ -39,11 +41,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'memories-view',
       ready: function() {
-        this.notes = [
-          {contents: "test1"},
-          {contents: "test2"}
-        ]
-      }
+        var request = document.createElement('iron-ajax');
+        this.notes = [];
+        var self = this;
+        request.handleAs = 'json';
+        request.method = 'post';
+        request.url = '/api/list/';
+        var req = request.generateRequest();
+        req.completes.then(function(response) {
+          console.log(self.notes);
+          for (let item of response.response.item) {
+            console.log(item);
+            self.push('notes', item);
+          }
+        });
+      },
     });
   </script>
 </dom-module>
