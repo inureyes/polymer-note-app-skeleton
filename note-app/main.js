@@ -29,6 +29,7 @@ noteapp.listen(3000, function () {
   console.log('Example noteapp listening on port 3000!');
 });
 
+
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
@@ -49,7 +50,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
